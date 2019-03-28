@@ -6,11 +6,10 @@
 // connected to a callback that increments a counter.
 
 import 'package:flutter/material.dart';
-import 'package:hub_news/pages/camera/CameraPage.dart';
+import 'package:hub_news/pages/toast/ToastPage.dart';
 import 'package:hub_news/pages/picture/PicturePage.dart';
 import 'package:hub_news/pages/weather/WeatherPage.dart';
-import 'package:hub_news/pages/SecondPage.dart';
-import 'package:hub_news/pages/InfoPage.dart';
+import 'package:hub_news/pages/info/InfoPage.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 
 void main() {
@@ -40,7 +39,7 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _children = [
     WeatherPage(),
-    // CameraPage(title: '相机调用'),
+    ToastPage(title: 'MethodChannel'),
     PicturePage(),
     InfoPage()
   ];
@@ -55,16 +54,17 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         items: [
-          BottomNavigationBarItem(title: new Text("Weather"), icon: new Icon(Icons.wb_sunny)),
-          BottomNavigationBarItem(title: new Text("Camera"), icon: new Icon(Icons.camera)),
-          BottomNavigationBarItem(title: new Text("Info"), icon: new Icon(Icons.person))
+          BottomNavigationBarItem(title: new Text("Weather"), icon: new Icon(Icons.wb_sunny), backgroundColor: Colors.blue),
+          BottomNavigationBarItem(title: new Text("Channel"), icon: new Icon(Icons.message), backgroundColor: Colors.blue),
+          BottomNavigationBarItem(title: new Text("Plugin"), icon: new Icon(Icons.photo_camera), backgroundColor: Colors.blue),
+          BottomNavigationBarItem(title: new Text("Info"), icon: new Icon(Icons.person), backgroundColor: Colors.blue)
         ],
       ),
 
 // 这里先不用FloatingActionButton了
 //      floatingActionButton: FloatingActionButton(
 //        onPressed: () => setState(() {
-//            _currentIndex = (_currentIndex + 1) % 3;
+//            _currentIndex = (_currentIndex + 1) % 4;
 //            }),
 //        tooltip: 'Increment Counter',
 //        child: Icon(Icons.add),

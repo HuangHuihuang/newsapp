@@ -2,20 +2,20 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'ImagePickerChannel.dart';
+import 'FlutterToastChannel.dart';
 
-class CameraPage extends StatefulWidget {
-  CameraPage({Key key, this.title}) : super(key: key);
+class ToastPage extends StatefulWidget {
+  ToastPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _CameraPageState createState() => new _CameraPageState();
+  _ToastPageState createState() => new _ToastPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
-  ImagePicker _imagePicker = new ImagePickerChannel();
-  File _imageFile;
+class _ToastPageState extends State<ToastPage> {
+  FlutterToast _flutterToastPlugin = new FlutterToastChannel();
+  String _textContent;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +25,18 @@ class _CameraPageState extends State<CameraPage> {
       ),
       body: new Column(
           children: [
-            new Expanded(child: new Center(child: _buildImage())),
+            new Expanded(child: new Center(child: _buildText())),
             _buildButtons()
           ]
       ),
     );
   }
 
-  void captureImage(ImageSource captureMode) async {
+  void showClientToast(ToastMode toastMode) async {
     try {
-      var imageFile = await _imagePicker.pickImage(imageSource: captureMode);
+      var toastContent = await _flutterToastPlugin.showToast(toastMode: toastMode);
       setState(() {
-        _imageFile = imageFile;
+        _textContent = toastContent;
       });
     }
     catch (e) {
@@ -44,11 +44,11 @@ class _CameraPageState extends State<CameraPage> {
     }
   }
 
-  Widget _buildImage() {
-    if (_imageFile != null) {
-      return new Image.file(_imageFile);
+  Widget _buildText() {
+    if (_textContent != null) {
+      return new Text('$_textContent', style: new TextStyle(fontSize: 18.0));
     } else {
-      return new Text('Take an image to start', style: new TextStyle(fontSize: 18.0));
+      return new Text('Click Button to invoke client method', style: new TextStyle(fontSize: 18.0));
     }
   }
 
@@ -59,8 +59,8 @@ class _CameraPageState extends State<CameraPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              _buildActionButton(new Key('retake'), 'Photos', () => captureImage(ImageSource.photos)),
-              _buildActionButton(new Key('upload'), 'Camera', () => captureImage(ImageSource.camera)),
+              _buildActionButton(new Key('retake'), 'Hello', () => showClientToast(ToastMode.sourceOne)),
+              _buildActionButton(new Key('upload'), 'World', () => showClientToast(ToastMode.sourceTwo)),
             ]
         ));
   }
@@ -71,8 +71,8 @@ class _CameraPageState extends State<CameraPage> {
           key: key,
           child: new Text(text, style: new TextStyle(fontSize: 20.0)),
           shape: new RoundedRectangleBorder(),
-          color: Colors.blueAccent,
-          textColor: Colors.white,
+          color: Colors.white,
+          textColor: Colors.blueAccent,
           onPressed: onPressed),
     );
   }

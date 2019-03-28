@@ -33,7 +33,7 @@ class _PicturePageState extends State<PicturePage> {
       persistentFooterButtons: <Widget>[
         new FlatButton(
             key: new Key('key'),
-            child: new Text('打开相册', style: new TextStyle(fontSize: 20.0)),
+            child: new Text('打开相机', style: new TextStyle(fontSize: 20.0)),
             shape: new RoundedRectangleBorder(),
             color: Colors.blueAccent,
             textColor: Colors.white,
