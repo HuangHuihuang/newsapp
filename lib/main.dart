@@ -11,8 +11,12 @@ import 'package:hub_news/pages/picture/PicturePage.dart';
 import 'package:hub_news/pages/weather/WeatherPage.dart';
 import 'package:hub_news/pages/SecondPage.dart';
 import 'package:hub_news/pages/InfoPage.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  _initJPush();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -73,4 +77,37 @@ class _HomeState extends State<Home> {
       _currentIndex = index;
     });
   }
+}
+
+void _initJPush() {
+  JPush jPush = new JPush();
+
+  jPush.applyPushAuthority(new NotificationSettingsIOS(
+      sound: true,
+      alert: true,
+      badge: true
+  ));
+
+  jPush.setup(
+    appKey: "f02e0e851ee9b8184fc3b6ec",
+    channel: "developer-default",
+    production: false,
+    debug: true,
+  );
+  jPush.getRegistrationID().then((rid) { });
+
+  jPush.addEventHandler(
+    // 接收通知回调方法。
+    onReceiveNotification: (Map<String, dynamic> message) async {
+      print("flutter onReceiveNotification: $message");
+    },
+    // 点击通知回调方法。
+    onOpenNotification: (Map<String, dynamic> message) async {
+      print("flutter onOpenNotification: $message");
+    },
+    // 接收自定义消息回调方法。
+    onReceiveMessage: (Map<String, dynamic> message) async {
+      print("flutter onReceiveMessage: $message");
+    },
+  );
 }

@@ -2,15 +2,19 @@
 
 A new Flutter application.
 
-## Getting Started
+已经实现以下功能
 
-This project is a starting point for a Flutter application.
+1. 实况天气：网络请求相关
+2. 相机：通过MethodChannel或者pub plugin的方式调用客户端原生硬件
+3. 个人中心页：Flutter相关资料，github地址（用于求star）
+4. 推送
 
-A few resources to get you started if this is your first Flutter project:
+#### UI
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+![WeatherPage](images/WeatherPage.jpg)
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+![PicturePage](images/PicturePage.jpg)
+
+![InfoPage](images/InfoPage.jpg)
+
+![JPush](images/push.jpg)
