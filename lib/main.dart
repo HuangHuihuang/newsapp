@@ -6,6 +6,8 @@
 // connected to a callback that increments a counter.
 
 import 'package:flutter/material.dart';
+import 'package:hub_news/pages/camera/CameraPage.dart';
+import 'package:hub_news/pages/picture/PicturePage.dart';
 import 'package:hub_news/pages/weather/WeatherPage.dart';
 import 'package:hub_news/pages/SecondPage.dart';
 import 'package:hub_news/pages/InfoPage.dart';
@@ -34,7 +36,8 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _children = [
     WeatherPage(),
-    SecondPage(),
+    // CameraPage(title: '相机调用'),
+    PicturePage(),
     InfoPage()
   ];
 
@@ -48,18 +51,20 @@ class _HomeState extends State<Home> {
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         items: [
-          BottomNavigationBarItem(title: new Text("Weather"), icon: new Icon(Icons.home)),
-          BottomNavigationBarItem(title: new Text("News"), icon: new Icon(Icons.cast_connected)),
-          BottomNavigationBarItem(title: new Text("Info"), icon: new Icon(Icons.info))
+          BottomNavigationBarItem(title: new Text("Weather"), icon: new Icon(Icons.wb_sunny)),
+          BottomNavigationBarItem(title: new Text("Camera"), icon: new Icon(Icons.camera)),
+          BottomNavigationBarItem(title: new Text("Info"), icon: new Icon(Icons.person))
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() {
-              _currentIndex++;
-            }),
-        tooltip: 'Increment Counter',
-        child: Icon(Icons.add),
-      ),
+
+// 这里先不用FloatingActionButton了
+//      floatingActionButton: FloatingActionButton(
+//        onPressed: () => setState(() {
+//            _currentIndex = (_currentIndex + 1) % 3;
+//            }),
+//        tooltip: 'Increment Counter',
+//        child: Icon(Icons.add),
+//      ),
     );
   }
 
